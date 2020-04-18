@@ -1,5 +1,3 @@
-<!-- Required extensions: pymdownx.betterem, pymdownx.tilde, pymdownx.emoji, pymdownx.tasklist, pymdownx.superfences -->
-
 # Home Office via Citrix Workspace App on Raspian Buster
 
 The Raspberry Pi 4 single board computer supports dual screen configurations and
@@ -16,19 +14,19 @@ Ths HowTo uses nano as text editor. So whereever you see nano you can use a diff
 
 ### Positives and Negatives
 * The Citrix Workspace App  
-  :heavy_plus_sign: can be downloaded as armhf Debian package for Buster on the Citrix website  
-  :heavy_plus_sign: comes with it's own outdated certificate store, that most likely requires an update  
-  :heavy_plus_sign: the memory usage is low enough that even the 1GB model should suffice  
-  :heavy_minus_sign: requires a different window manager than openbox due to missing multi-monitor hints  
-  :heavy_minus_sign: no optimization for realtime audio (Skype calls, etc.)  
+  \+ can be downloaded as armhf Debian package for Buster on the Citrix website  
+  \+ comes with it's own outdated certificate store, that most likely requires an update  
+  \+ the memory usage is low enough that even the 1GB model should suffice  
+  \- requires a different window manager than openbox due to missing multi-monitor hints  
+  \- no optimization for realtime audio (Skype calls, etc.)  
 * Raspian Desktop  
-  :heavy_plus_sign: the LXDE-pi desktop is sleek and nicely customized  
-  :heavy_minus_sign: the lightweight LXDE desktop does fullfill all assumptions expected by "business" apps  
-  :heavy_minus_sign: I could not get a Bluetooth headset to work on Raspian, if the headset had the handsfree profile, the microphone could not be used and if the microphone got detected (a different device), the audioquality was really bad and the recording unstable.  
-  :heavy_minus_sign: from my personal experience the Alsa soundsystem is not nearly as usable as Pulseaudio for an enduser  
-  :heavy_minus_sign: Raspian Desktop starts to slow down after a few hours of use and the Xorg process shows almost 100% CPU.
+  \+ the LXDE-pi desktop is sleek and nicely customized  
+  \- the lightweight LXDE desktop does not fullfill all assumptions expected by "business" apps  
+  \- I could not get a Bluetooth headset to work on Raspian, if the headset had the handsfree profile, the microphone could not be used and if the microphone got detected (a different device), the audioquality was really bad and the recording unstable.  
+  \- from my personal experience the Alsa soundsystem is not nearly as usable as Pulseaudio for an enduser  
+  \- Raspian Desktop starts to slow down after a few hours of use and the Xorg process shows almost 100% CPU.
   Logging out and in again workarounds this problem.  
-  I discoverd that this does not happen if gpu_mem is bumped to 320MB and 4k60Hz mode is activated
+  I discovered that this does not happen if gpu_mem is bumped to 320MB and 4k60Hz mode is activated
   in /boot/config.txt:
   ```ini
   hdmi_enable_4kp60=1
@@ -41,12 +39,12 @@ The Citrix Workspace App can be downloaded via the Citrix homepage.
 
 [Citrix Workspace app for Linux (ARM HF)](https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html)
 
-Navigate to _Available Downloads_ :arrow_forward: _Debian Packages_ :arrow_forward: _Full Packages_ and click **Download file**
+Navigate to _Available Downloads_ &rarr; _Debian Packages_ &rarr; _Full Packages_ and click **Download file**
 
 Since version Dec 12, 2019 the package can be directly installed via gdebi package manager. All required packages will automatically be downloaded.
 To install open the _Downloads_ folder in the file manager, right-click on the icaclient*.deb package and install the package.
 
-You now can launch Citrix Workspace via _Menu_ :arrow_forward: _Internet_ :arrow_forward: _Citrix Workspace_
+You now can launch Citrix Workspace via _Menu_ &rarr; _Internet_ &rarr; _Citrix Workspace_
 
 ### SSL Connection Problems
 Should you be unable to connect, and get a `SSL connection could not be established` error then it is highly likely that this is due
@@ -168,7 +166,7 @@ nano .asoundrc
 ```
 
 Add the lines in the editor.
-```ini
+```
 pcm.default pulse
 ctl.default pulse
 ```
@@ -213,7 +211,7 @@ Here is what worked best for me with the omnidirectional microphone in the speak
 
 In this file add at the end:
 
-```ini
+```
 load-module module-echo-cancel source_name=noechosource sink_name=noechosink aec_method=webrtc aec_args="analog_gain_control=0 digital_gain_control=1 extended_filter=1"
 set-default-source noechosource
 set-default-sink noechosink
@@ -224,7 +222,7 @@ set-default-sink noechosink
 I found another combination, that did work out ok'ish for audio calls with the effect that the audio is muffled. You can forget to listen to music with this setting, it will sound like you listen to music on the other end of a transatlantic call at the beginning of the 90's. It could be best if you are on a slow connection.
 
 These settings are from here: [Using PulseAudio: module echo cancel](https://github.com/alfredh/baresip/wiki/Using-PulseAudio:-module-echo-cancel)
-```ini
+```
 load-module module-echo-cancel source_name=noechosource sink_name=noechosink aec_method=webrtc rate=8000 channels=1
 set-default-source noechosource
 set-default-sink noechosink
@@ -234,7 +232,7 @@ set-default-sink noechosink
 If you have a device with multiple directional microphones, for example a webcam, the beamforming method may work best for acoustic echo cancellation. For details see the module-echo-cancel documentation. Here is the example from it, which I couldn't test.
 > If you have a webcam with 2 microphones 8cm apart, and you want to point it forwards, you could use
 
-```ini
+```
 load-module module-echo-cancel source_name=noechosource sink_name=noechosink aec_method=webrtc aec_args="analog_gain_control=0 digital_gain_control=1 beamforming=1 mic_geometry=-0.04,0,0,0.04,0,0"
 set-default-source noechosource
 set-default-sink noechosink
