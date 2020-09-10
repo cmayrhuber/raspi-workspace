@@ -207,16 +207,24 @@ General documentation about this module can be found at the Pulseaudio documenta
 sudo nano /etc/pulse/default.pa
 ```
 
-Here is what worked best for me with the omnidirectional microphone in the speakerphone. It uses the webrtc method developed by Google, turns off analog gain control (moving the volume slider) and turns on digital gain control (audio gain controlled via signal processing) and enables the extended filter, because the standard filter was not good enough without reducing the signal sampling rate of the microphone and speaker. With the setting below I can listen to music and perform conference calls via the speakerphone without too many audio distortions.
+Here is what worked best for me with the omnidirectional microphone in the speakerphone.  With the setting below I can listen to music and perform conference calls via the speakerphone without too many audio distortions. At first I started off with webrtc and the external filter setting, but after a lot of experimenting I found a combination that worked a bit better for me. It uses the speex echo cancellation with the source reduced to a single channel. A small frame size of 5ms finally resulted in good echo cancellation with speex. I never got it to work properly with the default settings. Due to the fiddly experience I had, I guess most people will need to do tuning of these parameters.
 
-In this file add at the end:
+In the default.pa file add at the end:
 
+```
+load-module module-echo-cancel source_properties="channels=1" source_name=noechosource sink_name=noechosink aec_method=speex aec_args="frame_size_ms=5 filter_size_ms=100"
+set-default-source noechosource
+set-default-sink noechosink
+```
+
+#### Alternative Setting: Webrtc with extended filter
+It uses the webrtc method developed by Google, turns off analog gain control (moving the volume slider) and turns on digital gain control (audio gain controlled via signal processing) and enables the extended filter, because the standard filter was not good enough without reducing the signal sampling rate of the microphone and speaker.
+This setting was the best for me when it comes to echo cancellation. It is almost perfect and was my default for a long time. It has a big drawback, however. During double-talk it reduces the volume of your voice, so that you almost cannot be understood by the other people in the meeting.
 ```
 load-module module-echo-cancel source_name=noechosource sink_name=noechosink aec_method=webrtc aec_args="analog_gain_control=0 digital_gain_control=1 extended_filter=1"
 set-default-source noechosource
 set-default-sink noechosink
 ```
-
 
 #### Alternative Setting: Low quality mono audio
 I found another combination, that did work out ok'ish for audio calls with the effect that the audio is muffled. You can forget to listen to music with this setting, it will sound like you listen to music on the other end of a transatlantic call at the beginning of the 90's. It could be best if you are on a slow connection.
