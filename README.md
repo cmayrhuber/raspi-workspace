@@ -1,16 +1,16 @@
-# Home Office via Citrix Workspace App on Raspian Buster
+# Home Office via Citrix Workspace App on Raspberry PI OS Buster
 
 The Raspberry Pi 4 single board computer supports dual screen configurations and
 thus has become a silent, serious candidate for Home Office work.
 
-I am using a Raspberry Pi 4 4GB, with Raspian Buster, 2x screen with an USB speakerphone.
-The assumption is that Raspian is installed with the LXDE-pi desktop and that the displays are working. 
+I am using a Raspberry Pi 4 4GB, with Raspberry PI OS Buster, 2x screen with an USB speakerphone.
+The assumption is that Raspberry PI OS is installed with the LXDE-pi desktop and that the displays are working. 
 
 ## What you will find in this HowTo
-* Configuration of Raspian to be able to use a dual screen setup with the Citrix Workspace App.
+* Configuration of Raspberry PI OS to be able to use a dual screen setup with the Citrix Workspace App.
 * Setup echo cancellation with Pulseaudio to be able to make Teams / Skype4Business via Citrix Workspace.
 
-Ths HowTo uses nano as text editor. So whereever you see nano you can use a different editor.
+Ths HowTo uses nano as text editor. So wherever you see nano you can use a different editor.
 
 ### Positives and Negatives
 * The Citrix Workspace App  
@@ -19,12 +19,12 @@ Ths HowTo uses nano as text editor. So whereever you see nano you can use a diff
   \+ the memory usage is low enough that even the 1GB model should suffice  
   \- requires a different window manager than openbox due to missing multi-monitor hints  
   \- no optimization for realtime audio (Skype calls, etc.)  
-* Raspian Desktop  
+* Raspberry PI OS Desktop  
   \+ the LXDE-pi desktop is sleek and nicely customized  
-  \- the lightweight LXDE desktop does not fullfill all assumptions expected by "business" apps  
-  \- I could not get a Bluetooth headset to work on Raspian, if the headset had the handsfree profile, the microphone could not be used and if the microphone got detected (a different device), the audioquality was really bad and the recording unstable.  
-  \- from my personal experience the Alsa soundsystem is not nearly as usable as Pulseaudio for an enduser  
-  \- Raspian Desktop starts to slow down after a few hours of use and the Xorg process shows almost 100% CPU.
+  \- the lightweight LXDE desktop does not fulfil all assumptions expected by "business" apps  
+  \- I could not get a Bluetooth headset to work on Raspberry Pi OS, if the headset had the hands-free profile, the microphone could not be used and if the microphone got detected (a different device), the audio quality was really bad and the recording unstable.  
+  \- from my personal experience the Alsa sound system is not nearly as usable as Pulseaudio for an end user  
+  \- Raspberry Pi Desktop starts to slow down after a few hours of use and the Xorg process shows almost 100% CPU.
   Logging out and in again workarounds this problem.  
   I discovered that this does not happen if gpu_mem is bumped to 320MB and 4k60Hz mode is activated
   in /boot/config.txt:
@@ -48,8 +48,8 @@ You now can launch Citrix Workspace via _Menu_ &rarr; _Internet_ &rarr; _Citrix 
 
 ### SSL Connection Problems
 Should you be unable to connect, and get a `SSL connection could not be established` error then it is highly likely that this is due
-to missing certificate autority (ca) certificates delivered with the Citrix Workspace App.
-In order to make Citrix Workspace use the ca cert's of Raspian:
+to missing certificate authority (ca) certificates delivered with the Citrix Workspace App.
+In order to make Citrix Workspace use the ca cert's of Raspberry Pi OS:
 ```sh
 sudo ln -s /etc/ssl/certs/*.pem /opt/Citrix/ICAClient/keystore/cacerts/
 ```
@@ -67,7 +67,7 @@ nano wfclient.ini
 ```
 
 #### Force a switch of the Keyboard Layout
-I had to change `KeyboardLayout=(User Profile)` to `KeyboardLayout=German` to get a german keyboard layout, the automatic detection did not work on Raspian, maybe there is a smarter way.
+I had to change `KeyboardLayout=(User Profile)` to `KeyboardLayout=German` to get a german keyboard layout, the automatic detection did not work on Raspberry Pi OS, maybe there is a smarter way.
 
 [Some keys not woring with X inside Citrix client](https://discussions.citrix.com/topic/347214-some-keys-not-working-with-x-inside-citrix-client/?do=findComment&comment=1831151)
 
@@ -77,7 +77,7 @@ To set medium audio quality on the client add a line with `AudioBandwithLimit=1`
 
 
 ## Dual-Screen Fullscreen
-Citrix Workspace supports fullscreen over dual screens layouts and so does the Raspberry Pi. Unfortunately the default window manager _Openbox_ lacks the correct hints for the Citrix Workpace App. The only way around it is to us a different windowmanager.  
+Citrix Workspace supports fullscreen over dual screens layouts and so does the Raspberry Pi. Unfortunately the default window manager _Openbox_ lacks the correct hints for the Citrix Workspace App. The only way around it is to us a different window manager.  
 
 [Citrix Workspace Linux App on Raspbian (Raspberry Pi 4 B with two Monitors) does not do Fullscreen over two monitors](https://discussions.citrix.com/topic/405984-solved-citrix-workspace-linux-app-on-raspbian-raspberry-pi-4-b-with-two-monitors-does-not-do-fullscreen-over-two-monitors/?do=findComment&comment=2054524)
 
@@ -121,7 +121,7 @@ window_manager=marco
 If you log out of your X11 session an login again, the desktop will no longer use openbox as window manager, but marco instead.
 
 ### Configure marco
-I configured marco to use a single workspace (the default is 4), the Blue-Submarine theme because it is a good fit for Raspian colors and sloppy window focus mode. Sloppy means that an open window will get the focus once you hover the mouse over it.
+I configured marco to use a single workspace (the default is 4), the Blue-Submarine theme because it is a good fit for Raspberry Pi OS colors and sloppy window focus mode. Sloppy means that an open window will get the focus once you hover the mouse over it.
 ```sh
 gsettings set org.mate.Marco.general num-workspaces 1
 gsettings set org.mate.Marco.general theme Blue-Submarine
@@ -135,7 +135,7 @@ Once you have done that Citrix Workspace will look like
 
 ## Speakerphone or Headset with Echo Cancellation via Pulseaudio
 
-I was trying to use Skype4Business calls via Citrix Workspace App and a cheap USB Speakerphone, because I hate wearing headsets. My first experience was absymal.
+I was trying to use Skype4Business calls via Citrix Workspace App and a cheap USB Speakerphone, because I hate wearing headsets. My first experience was abysmal.
 I had to fiddle with the microphone volume and then there always was an echo effect where colleagues could here themselves or sounding like "Mr. Roboto".
 
 As I was able to use the speakerphone without any echo effect in a local Microsoft Teams session on both a PC and a Mac, I suppose that Teams does echo cancellation all by itself if it is running locally. I also suppose that this is the case for it's predecessor Skype4Business. I guess that it does not work over Citrix Workspace App on armhf, because there is no optimized "realtime" Citrix HDX audio available over a TLS connection.
@@ -143,7 +143,7 @@ As I was able to use the speakerphone without any echo effect in a local Microso
 Luckily there is Linux the tinker-os. You can install, compile or configure almost anything, although you may rip your hair out on the voyage to achieve the goal.
 The goal in this case is to do not rely on Skype4Business to do echo cancellation, but to use a locally running software, so that the cheap speakerphone will behave like an expensive speakerphone and performs acoustic echo cancellation.
 
-The software that can do that on Raspian is the pulseaudio daemon with it's module-echo-cancel.
+The software that can do that on Raspberry Pi OS is the pulseaudio daemon with it's module-echo-cancel.
 
 ### Installation
 
@@ -154,7 +154,7 @@ sudo apt install pulseaudio pavucontrol
 ```
 
 ### Switching from Alsa to Pulseaudio
-Raspian buster is using the Alsa soundsystem for audio an not Pulseaudio as it did in Raspian stretch. In my personal experience Alsa is not as user friendly, it lacks some features of Pulseaudio and is more complicated to configure.
+Raspberry Pi OS buster is using the Alsa sound system for audio an not Pulseaudio as it did in Raspberry Pi OS stretch. In my personal experience Alsa is not as user friendly, it lacks some features of Pulseaudio and is more complicated to configure.
 
 Alsa can be configured to use Pulseaudio for input / output and mixer control.
 To do that make a backup copy of your `~/.asoundrc` and set pulse as default audio device and mixer.
@@ -171,7 +171,7 @@ pcm.default pulse
 ctl.default pulse
 ```
 
-Raspian uses the volume control in the panel to configure alsa, so it is best to remove it from the panel to prevent an accidential use and destruction of `.asoundrc`.
+Raspberry PI OS uses the volume control in the panel to configure alsa, so it is best to remove it from the panel to prevent an accidental use and destruction of `.asoundrc`.
 
 To remove the Volume Control (Alsa/BT) from the panel right-click on the icon
 ![volume control icon](img/volume_control.png)
@@ -183,7 +183,7 @@ To test if there is audio via pulseaudio, open the Pulseaudio Mixer, where you s
 
 ![pavucontrol](img/pavucontrol.png)
 
-Now you can add back a different Volume control applet to the pandel, by right clicking on an empty space in the panel and selecting Add/remove panel enties.
+Now you can add back a different Volume control applet to the panel, by right clicking on an empty space in the panel and selecting Add/remove panel entities.
 Choose Add and select _Volume Control_ - not _Volume Control (Alsa/BT)_.
 
 After adding the Volume Control to the panel you can configure it's settings:
@@ -207,10 +207,10 @@ General documentation about this module can be found at the Pulseaudio documenta
 sudo nano /etc/pulse/default.pa
 ```
 
-Here is what worked best for me with the omnidirectional microphone in the speakerphone.  With the setting below I can listen to music and perform conference calls via the speakerphone without too many audio distortions. 
+Here is what worked best for me with the omnidirectional microphone in the speakerphone. With the setting below I can listen to music and perform conference calls via the speakerphone without too many audio distortions. 
 
 #### Webrtc with extended filter
-It uses the webrtc method developed by Google, turns off analog gain control (moving the volume slider) and turns on digital gain control (audio gain controlled via signal processing) and enables the extended filter, because the standard filter was not good enough without reducing the signal sampling rate of the microphone and speaker.
+It uses the webrtc method developed by Google. It turns off analog gain control (moving the volume slider), turns on digital gain control (audio gain controlled via signal processing) and enables the extended filter. The standard filter was not good enough without reducing the signal sampling rate of the microphone and speaker.
 This setting is the best for me when it comes to echo cancellation. It is almost perfect, almost. It has a big drawback, however. During double-talk it reduces the volume of your voice, so that you almost cannot be understood by the other people in the meeting.
 
 In the default.pa file add at the end:
@@ -243,8 +243,8 @@ set-default-source noechosource
 set-default-sink noechosink
 ```
 
-#### Alternative Setting: Beamforming with directional microphones
-If you have a device with multiple directional microphones, for example a webcam, the beamforming method may work best for acoustic echo cancellation. For details see the module-echo-cancel documentation. Here is the example from it, which I couldn't test.
+#### Alternative Setting: Beam forming with directional microphones
+If you have a device with multiple directional microphones, for example a webcam, the beam forming method may work best for acoustic echo cancellation. For details see the module-echo-cancel documentation. Here is the example from it, which I couldn't test.
 > If you have a webcam with 2 microphones 8cm apart, and you want to point it forwards, you could use
 
 In the default.pa file add at the end:
