@@ -8,7 +8,7 @@ echo cancellation.
 The assumption is that Raspberry PI OS is installed with the LXDE-pi desktop and that the displays are working. 
 
 ## The previous guide was for Buster
-You can find this guide here: [Home Office via Citrix Workspace App on Raspberry PI OS Buster][Buster.md]
+You can find this guide here: [Home Office via Citrix Workspace App on Raspberry PI OS Buster](Buster.md)
 It contains additional information in how to set up echo cancellation with for a cheap speakerphone that is
 unable to do that in hardware via pulseaudio. I bought a second, more expensive speakerphone that supports 
 hardware echo cancellation and it is a lot better than the previous setup with pulseaudio.
