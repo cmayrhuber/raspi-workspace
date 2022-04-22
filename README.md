@@ -23,15 +23,15 @@ Ths HowTo uses nano as text editor. So wherever you see nano you can use a diffe
 
 ### Positives and Negatives
 * The Citrix Workspace App  
-  \+ can be downloaded as armhf Debian package for Buster on the Citrix website
-  \+ multiple displays work out of the box in Raspberry Pi OS when it uses the Mutter window manager
-  \- multiple displays do not work with the Openbox window manager, thus at least a 2GB model is needed [Bullseye – the new version of Raspberry Pi OS](https://www.raspberrypi.com/news/raspberry-pi-os-debian-bullseye/)
+  \+ can be downloaded as armhf Debian package for Buster on the Citrix website  
+  \+ multiple displays work out of the box in Raspberry Pi OS when it uses the Mutter window manager  
+  \- multiple displays do not work with the Openbox window manager, thus at least a 2GB model is needed [Bullseye – the new version of Raspberry Pi OS](https://www.raspberrypi.com/news/raspberry-pi-os-debian-bullseye/)  
   \- no optimization for realtime audio (Skype calls, etc.)  
-* Raspberry Pi OS Desktop arm64 
+* Raspberry Pi OS Desktop arm64  
   \+ the LXDE-pi desktop is sleek and nicely customized  
   \+ Raspberry Pi OS is based upon Debian and thus supports the fantastic multiarch feature  
-  \+ Bullseye comes with Pulseaudio support by default
-  \+ No more special configuration for gpu memory to prevent a memory leak
+  \+ Bullseye comes with Pulseaudio support by default  
+  \+ No more special configuration for gpu memory to prevent a memory leak  
 
 ## Raspberry Pi OS arm64
 Why arm64 and not armhf? Well there are some synthetic benchmarks in the net that show a performance benefit.
