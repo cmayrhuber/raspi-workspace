@@ -42,7 +42,7 @@ So I did a re-install with the Raspberry Pi arm64 image [Raspberry Pi OS (64-bit
 and also followed the steps to install the chromium armhf version to have support for streaming media that requires
 content protection.
 
-Compared to the 
+Compared to Buster the Bullseye release has matured a lot on the Raspberry Pi hardware.
 
 ## Multiple screens
 The Mutter window manager provides the right hints to the Citrix workspace app.
