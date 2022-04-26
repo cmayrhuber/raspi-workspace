@@ -71,8 +71,23 @@ After the install several libraries are missing to get audio and video working.
 So you need to install some additional packages that are missing in the armhf architecture:
 
 ```sh
-sudo apt install pulseaudio:armhf gstreamer1.0-libav:armhf gstreamer1.0-plugins-base:armhf gstreamer1.0-plugins-good:armhf gstreamer1.0-plugins-bad:armhf gstreamer1.0-plugins-ugly:armhf libc++1:armhf libcanberra-gtk-module:armhf libcanberra-gtk3-module:armhf libwebkit2gtk-4.0:armhf
+sudo apt install gstreamer1.0-libav:armhf gstreamer1.0-plugins-base:armhf gstreamer1.0-plugins-good:armhf gstreamer1.0-plugins-bad:armhf gstreamer1.0-plugins-ugly:armhf libc++1:armhf libcanberra-gtk-module:armhf libcanberra-gtk3-module:armhf libwebkit2gtk-4.0:armhf
 ```
+
+I had a bit of a struggle to get the microphone working in Citrix Workspace and I think the solution was to install
+pulseaudio for armhf to pull in all the dependencies and then to reinstall pulseaudo for arm64
+(which got removed by the armhf version).
+
+Install pulseaudio:armhf
+```sh
+apt install pulseaudio:armhf 
+```
+
+Re-install pulseaudio:arm64 to actually have working audio after a reboot.
+```sh
+apt install pulseaudio 
+```
+
 
 The Citrix workspace app provides a script if all necessary components are installed, run:
 ```sh
