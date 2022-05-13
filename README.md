@@ -80,12 +80,12 @@ pulseaudio for armhf to pull in all the dependencies and then to reinstall pulse
 
 Install pulseaudio:armhf
 ```sh
-apt install pulseaudio:armhf 
+sudo apt install pulseaudio:armhf 
 ```
 
 Re-install pulseaudio:arm64 to actually have working audio after a reboot.
 ```sh
-apt install pulseaudio 
+sudo apt install pulseaudio 
 ```
 
 
